@@ -1,0 +1,34 @@
+
+{%set style             = "mkub/templates/print_style/style.css" %}      
+{%set Approver_footer   = "mkub/templates/includes/Approver_footer.html" %}
+{%set calculation       = "mkub/templates/includes/calculation.html" %}
+{%set datetime          = "mkub/templates/includes/datetime.html" %}      
+{%set docname           = "mkub/templates/includes/DocName.html" %}      
+{%set myhead            = "mkub/templates/includes/myhead.html" %}
+{%set address           = "mkub/templates/includes/address.html" %} 
+{%set item              = "mkub/templates/includes/item.html" %}
+{%set pageno            = "mkub/templates/includes/pageno.html" %}
+{%set tax               = "mkub/templates/includes/tax.html" %}
+{%set watermark         = "mkub/templates/includes/watermark.html" %}
+{%set printsetting      = "mkub/templates/includes/printsetting.html" %}
+<style> {%- include style -%} </style>              
+{%- include datetime -%}                            
+{%- include docname -%}                            
+{%- include myhead -%}                              
+{%- include address -%}                             
+{%- include item -%}                                
+{%- include watermark -%}                           
+<div class="divTable t line"  style="width: 100%;">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="row  divTableCell" style="width: 50%; padding: 1px 2px;">
+                {%- include tax -%}                
+            </div>
+            <div class="row divTableCell l-line " style="width: 50%; font-size: 10px; padding: 1px 2px;">
+                {%- include calculation -%}         
+            </div>            
+        </div>	
+    </div>
+</div>
+{%- include printsetting -%}                        
+{%- include Approver_footer-%}                     

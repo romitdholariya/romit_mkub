@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include mkub *.css
+recursive-include mkub *.csv
+recursive-include mkub *.html
+recursive-include mkub *.ico
+recursive-include mkub *.js
+recursive-include mkub *.json
+recursive-include mkub *.md
+recursive-include mkub *.png
+recursive-include mkub *.py
+recursive-include mkub *.svg
+recursive-include mkub *.txt
+recursive-exclude mkub *.pyc

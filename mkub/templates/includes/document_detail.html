@@ -1,0 +1,368 @@
+{%if doc.doctype == "Purchase Order"%}
+<div class="divTable t">
+    <div class="divTableBody">
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 10px"><strong>Doc No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 10px"><strong>{{ doc.name }} </strong></div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Date:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('transaction_date') }}</div>
+        </div>
+    </div>
+</div>
+{%endif%}
+{%if doc.doctype == "Purchase Receipt"%}
+<div class="divTable t">
+    <div class="divTableBody">
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 10px"><strong>Doc No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 10px"><strong>{{ doc.name }} </strong></div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Date:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('posting_date') }}</div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Your Inv No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('supplier_delivery_note' or
+                "N/A") }}</div>
+        </div>
+        <div class="divTableRow b-line">
+            {%for i in doc.items %}
+            {%if loop.index <= 1 %} <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>PO Ref:</strong>
+        </div>
+        <div class="divTableCell col-xs-8" style="font-size: 9px">{{ i.purchase_order or "N/A"}}</div>
+        {%endif%}
+        {%endfor%}
+    </div>
+    <div class="divTableRow b-line">
+        <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>transporter Name:</strong></div>
+        <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('transporter_name' or "N/A") }}
+        </div>
+    </div>
+    <div class="divTableRow b-line">
+        <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Vehicle Number:</strong></div>
+        <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('lr_no') }}</div>
+    </div>
+    <div class="divTableRow b-line">
+        <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Vehicle Date:</strong></div>
+        <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('lr_date') }}</div>
+    </div>
+</div>
+</div>
+{%endif%}
+{%if doc.doctype == "Purchase Invoice"%}
+<div class="divTable t">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell col-xs-4 b-line" style="font-size: 9px"><strong>Doc No:</strong></div>
+            <div class="divTableCell col-xs-8 b-line" style="font-size: 9px"><strong>{{ doc.name }}</strong> </div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell col-xs-4 b-line" style="font-size: 9px"><strong>Date:</strong></div>
+            <div class="divTableCell col-xs-8 b-line" style="font-size: 9px">{{ doc.get_formatted('posting_date') }}</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell col-xs-4 b-line" style="font-size: 9px"><strong>Supp Inv No:</strong></div>
+            <div class="divTableCell col-xs-8 b-line" style="font-size: 9px">{{ doc.get_formatted('bill_no') }}</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell col-xs-4 b-line" style="font-size: 9px"><strong>Supp Inv Date:</strong></div>
+            <div class="divTableCell col-xs-8 b-line" style="font-size: 9px">{{ doc.get_formatted('bill_date') }}</div>
+        </div>
+        {%for i in doc.items %}
+        {% if loop.index <= 1 %} 
+        <div class="divTableRow">
+            <div class="divTableCell col-xs-4 b-line" style="font-size: 9px"><strong>PO Ref:</strong></div>
+            <div class="divTableCell col-xs-8 b-line" style="font-size: 9px">{{ i.purchase_order }}</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell col-xs-4 b-line" style="font-size: 9px"><strong>PR Ref:</strong></div>
+            <div class="divTableCell col-xs-8 b-line" style="font-size: 9px">{{ i.purchase_receipt }}</div>
+        </div>
+        {%endif%}
+        {%endfor%}
+    </div>
+</div>
+{%endif%}
+{%if doc.doctype == "Payment Entry"%}
+<div class="divTable t">
+    <div class="divTableBody">
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px;"><strong>Doc Type:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.doctype }}</div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 10px"><strong>Doc No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 10px"><strong>{{ doc.name }} </strong></div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Date:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('posting_date') }}
+            </div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Payment Type:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('payment_type') }}</div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Party Code:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('party') }}</div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Party Name:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('party_name') }}</div>
+        </div>
+        {%if doc.party_bank_account =="" %}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Party Bank A/C:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('party_bank_account') }}</div>
+        </div>
+        {%endif%}
+        {%if doc.contact_person ==""%}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Party Contact:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('contact_person') }}</div>
+        </div>
+        {%endif%}
+        {%for i in doc.references %}
+        {%if doc.reference_doctype != "" and doc.reference_name !=""%}
+        {% if loop.index <= 1%} 
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong> {{ i.reference_doctype }}</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ i.reference_name }}</div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Against Bill No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ i.bill_no }}</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Due Date:</strong></div>
+            <div class="divTableCell col-xs-8 text-left" style="font-size: 9px">{{ i.due_date }}</div> 
+        </div> 
+        {%endif%}
+        {%endif%}
+        {%endfor%}
+    </div>
+</div>
+{%endif%}
+{%if doc.doctype == "Quotation"%}
+<div class="divTable t">
+    <div class="divTableBody">
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 10px"><strong>Qut No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 10px"><strong>{{ doc.name }} </strong></div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Date:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('transaction_date') }}</div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Valid Till:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('valid_till') }}</div>
+        </div>
+    </div>
+</div>
+{%endif%}
+{%if doc.doctype == "Sales Order"%}
+<div class="divTable t">
+    <div class="divTableBody">
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 10px"><strong>SO No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 10px"><strong>{{ doc.name }}</strong> </div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Date:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('transaction_date') }}</div>
+        </div>
+        <div class="divTableRow b-line">
+            {%for i in doc.items %}
+                {%if loop.index <= 1 %} 
+                <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Qot Ref:</strong></div>
+                <div class="divTableCell col-xs-8" style="font-size: 9px">{{ i.prevdoc_docname or "N/A"}}</div>
+                {%endif%}
+            {%endfor%}
+            
+        </div>
+            
+        {%if doc.get_formatted('po_no') == ""%}
+        {%else%}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 10px"><strong>Your PO NO:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 10px"><strong>{{ doc.get_formatted('po_no') }}</strong></div>
+        </div> 
+        {%endif%}
+        {%if doc.get_formatted('po_date') == ""%}
+        {%else%}
+            <div class="divTableRow b-line">
+                <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Your PO Date:</strong></div>
+                <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('po_date') }}</div>
+            </div>
+        {%endif%}
+
+    </div>
+</div>
+{%endif%}
+{%if doc.doctype == "Delivery Note"%}
+<div class="divTable t">
+    <div class="divTableBody">
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 10px"><strong>DN No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 10px"><strong>{{ doc.name }}</strong> </div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Date:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('posting_date') }}</div>
+        </div>
+        {%if doc.get_formatted('po_no') == ""%}
+        {%else%}
+            <div class="divTableRow b-line">
+                <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Your PO No:</strong></div>
+                <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('po_no') }}</div>
+            </div> 
+    
+        {%endif%}
+    
+        {%if doc.get_formatted('po_date') == ""%}
+        {%else%}
+            <div class="divTableRow b-line">
+                <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Your PO Date:</strong></div>
+                <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('po_date') }}</div>
+            </div>
+        {%endif%}
+        {%- for i in doc.items -%}
+        {% if loop.index <= 1%} 
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Against SO No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ i.get_formatted('against_sales_order',doc) }}</div>
+        </div>
+        {%endif%}
+        {%- endfor -%}
+        {%if doc.get_formatted('ewaybill') == ""%}
+
+        {%else%}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>E-Way Bill No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('ewaybill') }}</div>
+        </div>
+        {%endif%}
+        {%if doc.get_formatted('lr_no') == ""%}
+
+        {%else%}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Trans Receipt No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('lr_no') }}</div>
+        </div>
+        {%endif%}
+        {%if doc.get_formatted('lr_date') == ""%}
+
+        {%else%}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Trans Receipt Date:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('lr_date') }}</div>
+        </div>
+        {%endif%}
+        {%if doc.get_formatted('driver') == ""%}
+
+        {%else%}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Driver Name:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('driver_name') }}</div>
+        </div>
+         {%endif%}
+        
+        {%if doc.get_formatted('po_date') == ""%}
+        
+        {%else%}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-4" style="font-size: 9px"><strong>Vehicle No:</strong></div>
+            <div class="divTableCell col-xs-8" style="font-size: 9px">{{ doc.get_formatted('vehicle_no') }}</div>
+        </div>
+        {%endif%}
+    </div>
+</div>
+{%endif%}
+{%if doc.doctype == "Sales Invoice"%}
+<div class="divTable t">
+    <div class="divTableBody">
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-5" style="font-size: 10px"><strong>Inv No:</strong></div>
+            <div class="divTableCell col-xs-7" style="font-size: 10px"><strong>{{ doc.name }}</strong> </div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-5" style="font-size: 9px"><strong>Date:</strong></div>
+            <div class="divTableCell col-xs-7" style="font-size: 9px">{{ doc.get_formatted('posting_date') }}</div>
+        </div>
+        {%if doc.get_formatted('po_no') == ""%}
+        {%else%}
+            <div class="divTableRow b-line">
+                <div class="divTableCell col-xs-5" style="font-size: 9px"><strong>Your PO No:</strong></div>
+                <div class="divTableCell col-xs-7" style="font-size: 9px">{{ doc.get_formatted('po_no') }}</div>
+            </div> 
+    
+        {%endif%}
+    
+        {%if doc.get_formatted('po_date') == ""%}
+        {%else%}
+            <div class="divTableRow b-line">
+                <div class="divTableCell col-xs-5" style="font-size: 9px"><strong>Your PO Date:</strong></div>
+                <div class="divTableCell col-xs-7" style="font-size: 9px">{{ doc.get_formatted('po_date') }}</div>
+            </div>
+        {%endif%}
+        {%- for i in doc.items -%}
+        {% if loop.index <= 1%} 
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-5" style="font-size: 9px"><strong>Against SO No:</strong></div>
+            <div class="divTableCell col-xs-7" style="font-size: 9px">{{ i.get_formatted('sales_order',doc) }}</div>
+        </div>
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-5" style="font-size: 9px"><strong>Against DN No:</strong></div>
+            <div class="divTableCell col-xs-7" style="font-size: 9px">{{ i.get_formatted('delivery_note',doc) }}</div>
+        </div>
+        {%endif%}
+        {%- endfor -%}
+        {%if doc.ewaybill == ""%}
+        {%else%}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-5" style="font-size: 9px"><strong>E-Way Bill:</strong></div>
+            <div class="divTableCell col-xs-7" style="font-size: 9px">{{ doc.ewaybill or ''}}</div>
+        </div>
+        {%endif%}
+        {%if doc.get_formatted('lr_no') == ""%}
+
+        {%else%}
+        
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-5" style="font-size: 9px"><strong>Trans Receipt No:</strong></div>
+            <div class="divTableCell col-xs-7" style="font-size: 9px">{{ doc.get_formatted('lr_no') }}</div>
+        </div>
+        {%endif%}
+        {%if doc.get_formatted('lr_date') == ""%}
+
+        {%else%}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-5" style="font-size: 9px"><strong>Trans Receipt Date:</strong></div>
+            <div class="divTableCell col-xs-7" style="font-size: 9px">{{ doc.get_formatted('lr_date') }}</div>
+        </div>
+        {%endif%}
+        {%if doc.get_formatted('driver') == ""%}
+
+        {%else%}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-5" style="font-size: 9px"><strong>Driver Name:</strong></div>
+            <div class="divTableCell col-xs-7" style="font-size: 9px">{{ doc.get_formatted('driver_name') }}</div>
+        </div>
+         {%endif%}
+        
+        {%if doc.get_formatted('vehicle_no') == ""%}
+        
+        {%else%}
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-5" style="font-size: 9px"><strong>Vehicle No:</strong></div>
+            <div class="divTableCell col-xs-7" style="font-size: 9px">{{ doc.get_formatted('vehicle_no') }}</div>
+        </div>
+        {%endif%}
+    </div>
+</div>
+{%endif%}

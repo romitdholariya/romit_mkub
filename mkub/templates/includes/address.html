@@ -1,0 +1,107 @@
+{% set docdetail = "mkub/templates/includes/document_detail.html" %}
+{%if doc.doctype=='Purchase Order' or doc.doctype=='Purchase Receipt' %}
+<div class="divTable t">
+    <div class="divTableBody">
+        <div class="divTableRow line">
+            <div class="divTableCell" style="width: 50%; padding: 0px 2px; font-size: 11px;">
+                <strong>Supplier Address<br/>
+                {{ doc.supplier_name }}</strong><br/>
+                {{ doc.address_display }}
+            </div>
+            <div class="divTableCell  l-line" style="width: 50%; padding: 0px 2px; font-size: 11px;">
+                <strong>Billing & Delivery Address<br/>
+                    {{ doc.billing_address.split('-')[0]}}<br/> 
+                </strong>
+                {{ doc.billing_address_display or doc.shipping_address_display}}
+            </div>
+        </div>
+    </div>
+</div>
+{%endif%}
+{%if doc.doctype=='Quotation' or doc.doctype=='Sales Order' or doc.doctype=='Delivery Note'%}
+<div class="divTable t line">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            {%if doc.get_formatted('currency') == 'INR' %} 
+            <div class="divTableCell col-xs-6" style="font-size: 9px;">
+                <div class="divTableRow"><strong>Bill To:</strong></div>
+                <div class="divTableRow"><strong>{{ doc.customer_name }}</strong></div>
+                <div class="divTableRow">{{ doc.address_display }}</div>
+            </div>
+            {%if doc.shipping_address_name=="" %}
+            {%else%}
+                <div class="divTableCell col-xs-6 l-line" style="font-size: 9px">
+                <div class="divTableRow"><strong>Ship To:</strong></div>
+                <div class="divTableRow"><strong>{{ doc.shipping_address_name.split('-')[0] or "" }}</strong></div>
+                <div class="divTableRow">{{ doc.shipping_address or "" }}</div>
+                </div>
+            {%endif%}
+            {%else%}                                        
+            <div class="divTableCell col-xs-6" style="font-size: 9px;">
+                <div class="divTableRow">Consignee-Bill To:</div>
+                <div class="divTableRow"><strong>{{ doc.customer_name }}</strong></div>
+                <div class="divTableRow">{{ doc.address_display }}</div>
+            </div>
+            {%endif%}
+        </div>
+    </div>
+</div>
+{%endif%}
+{%if doc.doctype=='Sales Invoice'%}
+<div class="divTable t line">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            {%if doc.get_formatted('irn') == '' %}  
+                {%if doc.get_formatted('currency') == 'INR' %} 
+                    <div class="divTableCell col-xs-6" style="font-size: 9px;">
+                        <div class="divTableRow"><strong>Bill To:</strong></div>
+                        <div class="divTableRow"><strong>{{ doc.customer_name }}</strong></div>
+                        <div class="divTableRow">{{ doc.address_display }}</div>
+                    </div>
+                    {%if doc.shipping_address_name=="" %}
+                    {%else%}
+                        <div class="divTableCell col-xs-6 l-line" style="font-size: 9px">
+                        <div class="divTableRow"><strong>Ship To:</strong></div>
+                        <div class="divTableRow"><strong>{{ doc.shipping_address_name.split('-')[0] or "" }}</strong></div>
+                        <div class="divTableRow">{{ doc.shipping_address or "" }}</div>
+                        </div>
+                    {%endif%}
+                {%else%}         
+                                                           
+                    <div class="divTableCell col-xs-6" style="font-size: 9px;">
+                        <div class="divTableRow">Consignee-Bill To:</div>
+                        <div class="divTableRow"><strong>{{ doc.customer_name }}</strong></div>
+                        <div class="divTableRow">{{ doc.address_display }}</div>
+                    </div>
+                {%endif%}
+            {%else%}
+            {%if doc.get_formatted('currency') == 'INR' %} 
+            <div class="divTableCell col-xs-4" style="font-size: 9px;">
+                <div class="divTableRow"><strong>Bill To:</strong></div>
+                <div class="divTableRow"><strong>{{ doc.customer_name }}</strong></div>
+                <div class="divTableRow">{{ doc.address_display }}</div>
+            </div>
+            {%if doc.shipping_address_name=="" %}
+            {%else%}
+                <div class="divTableCell col-xs-4 l-line r-line" style="font-size: 9px">
+                <div class="divTableRow"><strong>Ship To:</strong></div>
+                <div class="divTableRow"><strong>{{ doc.shipping_address_name.split('-')[0] or "" }}</strong></div>
+                <div class="divTableRow">{{ doc.shipping_address or "" }}</div>
+                </div>
+            {%endif%}
+            <div class="divTableCell col-xs-4" style="font-size: 9px">
+                {%- include docdetail-%}
+            </div>
+            
+        {%else%}                                                           
+            <div class="divTableCell col-xs-6" style="font-size: 9px;">
+                <div class="divTableRow">Consignee-Bill To:</div>
+                <div class="divTableRow"><strong>{{ doc.customer_name }}</strong></div>
+                <div class="divTableRow">{{ doc.address_display }}</div>
+            </div>
+        {%endif%}
+            {%endif%}
+        </div>
+    </div>
+</div>
+{%endif%}

@@ -1,0 +1,86 @@
+{%if doc.doctype == 'Purchase Order' %}
+<div class="divTable t " style="font-size: 9px; width:100%;" > 
+    <div class="divTableBody line" >
+        {% set fix_note = frappe.db.get_single_value('Print Setting', 'b_note_text') %}
+        {%if fix_note|length > 80%}
+        <div class="divTableRow b-line" >{{fix_note or ''}}</div>
+        {%else%}
+        {%endif%}
+        {% set fix_note = frappe.db.get_single_value('Print Setting', 'b_certification_text') %}
+        {%if fix_note|length > 80 %}
+        <div class="divTableRow b-line" >{{fix_note or ''}}</div>
+        {%else%}
+        {%endif%}
+        {% set fix_note = frappe.db.get_single_value('Print Setting', 'b_jurisdiction_text') %}
+        {%if fix_note|length > 80%}
+        <div class="divTableRow ">{{fix_note or ''}}</div>
+        {%else%}
+        {%endif%}
+    </div>
+</div>
+{%endif%}
+{%if doc.doctype == 'Quotation' %}
+<div class="divTable t line">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            {% set fix_note = frappe.db.get_single_value('Print Setting', 'q_foot_note') %}
+            <div class="divTableCell col-xs-9 " style="font-size: 9px;">{{fix_note or ''}}</div>
+            {%set fix_note = ""%}
+            <div class="divTableCell col-xs-3 l-line b-line text-center" style="font-size: 9px;">For {{doc.company}}</div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell col-xs-9"></div>
+            <div class="divTableCell col-xs-3 l-line">
+                {% set ans = frappe.db.get_single_value('Print Setting', 's_director_sign') %}
+                <img class="directorsign" alt="Need Sign" src="{{ans}}">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="linespace"></div>
+{%endif%}
+{%if doc.doctype == 'Sales Order' or doc.doctype == 'Delivery Note' or doc.doctype == 'Sales Invoice'%}
+<div class="divTable t line">
+    <div class="divTableBody">
+        {% set fix_note = frappe.db.get_single_value('Print Setting', 's_certification_text') %}
+        <div class="divTableRow">
+            {%if fix_note != "" %}
+            <div class="divTableCell col-xs-9 r-line" style="font-size: 9px;">{{fix_note or ''}}</div>
+            {%endif%}
+            <div class="divTableCell col-xs-3 b-line text-center" style= "background: #e9e8e8;"><strong>For, {{doc.company}}</strong></div>
+        </div>
+        {% set fix_note = frappe.db.get_single_value('Print Setting', 's_jurisdiction_text') %}
+        {%if fix_note != "" %}
+        <div class="divTableRow">
+            <div class="divTableCell col-xs-9 t-line r-line" style="font-size: 9px;">{{fix_note or ''}}</div>
+            <div class="divTableCell col-xs-3 text-center"style= "translate: 0 30px; background: #e9e8e8;"><strong>Authorised Signatory</strong></div>
+        </div>
+        {%endif%}
+        {% set fix_note = frappe.db.get_single_value('Print Setting', 's_attract_text') %}
+        {% if fix_note != "" %}
+        <div class="divTableRow">
+            <div class="divTableCell col-xs-9 r-line" style="font-size: 9px;">{{fix_note}}</div>
+        </div> 
+        {%endif%}
+        {% set fix_note = frappe.db.get_single_value('Print Setting', 's_quote_text') %}
+        {%if fix_note != "" %} 
+        <div class="divTableRow">       
+            <div class="divTableCell col-xs-12 text-center t-line" style="background: #e9e8e8; font-size: 9px;"><strong>{{fix_note or ''}}</strong></div>
+        </div>
+        {%endif%}
+    </div>
+</div>
+<div class="linespace"></div>
+{%endif%}
+{%if doc.doctype == 'Delivery Note' %}
+{%set note              = "mkub/templates/includes/note.html" %}
+{%set paymentterm       = "mkub/templates/includes/paymentterm.html" %}
+<div class="divTable t line">
+    <div class="divTableBody">
+        <div class="divTableRow b-line">
+            <div class="divTableCell col-xs-9 r-line" style="font-size: 9px;">{%- include note -%}{%- include paymentterm -%}</div>
+            <div class="divTableCell col-xs-3 text-center b-line" style="font-size: 9px;">For {{doc.company}}</div>
+        </div>
+    </div>
+</div>
+{%endif%}

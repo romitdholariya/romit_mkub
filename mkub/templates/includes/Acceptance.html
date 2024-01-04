@@ -1,0 +1,32 @@
+{%if doc.doctype == 'Quotation'%}                              
+    {% set fix_note = 
+        frappe.db.get_single_value('Print Setting', 'q_order_acceptance') 
+    %}
+    {%if fix_note == ""%}
+    {%else%}
+    <div class="divTable t line">                                   
+        <div class="divTableBody">
+            <div class="divTableRow">
+                <div class="divTableCell "style="width:30%">{{fix_note or ''}}</div>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+{%endif%}
+
+{%if doc.doctype == 'Sales Order'%}                             
+    {% set fix_note = 
+        frappe.db.get_single_value('Print Setting', 's_order_acceptance') 
+    %}
+    {%if fix_note == ""%}
+
+    {%else%}
+    <div class="divTable t line">                                   
+        <div class="divTableBody">
+            <div class="divTableRow">
+                <div class="divTableCell "style="width:30%">{{fix_note or ''}}</div>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+{%endif%}

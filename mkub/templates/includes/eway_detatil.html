@@ -1,0 +1,19 @@
+<div class="divTable t"> 
+    <div class="divTableBody">
+        <div class="divTableRow r-line  t-line l-line">
+            {%if doc.get_formatted('irn') == ""%}
+            {%else%}
+                <div class="divTableCell text-left" style="width: 70%; padding: 0px 10px;">
+                    <strong>IRN No: </strong>{{ doc.irn or ''}}
+                </div> 
+            {%endif%}
+            
+            {%if doc.get_formatted('ewaybill') == ""%}
+            {%else%}
+            <div class="divTableCell text-right" style="width: 30%; padding: 0px 10px;">
+                <strong>E-Way Bill No: </strong>{{ doc.ewaybill or ''}}
+            </div> 
+            {%endif%}      
+        </div>	
+    </div>
+</div>

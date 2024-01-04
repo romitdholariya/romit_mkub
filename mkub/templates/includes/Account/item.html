@@ -1,0 +1,27 @@
+<div class="divTable t line">
+    <div class="divTableBody">
+        <div class="divTableRow " style="background: #ebebeb;">
+            <div class="divTableCell text-center" style="width: 2%;"><strong>Sr</strong></div>
+            <div class="divTableCell text-center" style="border-left:1px solid black; border-right: 1px solid black; width: 40%;"><strong>Account</strong></div>
+            <div class="divTableCell text-center"><strong>Party Code</strong></div>
+            <div class="divTableCell text-center" style="border-left:1px solid black; border-right: 1px solid black; "><strong>Party Balance</strong></div>
+            <div class="divTableCell text-center" ><strong>Plant</strong></div>
+            <div class="divTableCell text-center" style="border-left:1px solid black; border-right: 1px solid black; "><strong>Debit</strong></div>
+            <div class="divTableCell text-center"><strong>Credit</strong></div>
+            
+        </div>
+        {%- for row in doc.accounts -%}
+        <div class="divTableRow" style="border-top:1px solid black;">
+       
+               <div class="divTableCell text-center" style="width: 2%;">{{ row.idx }}</div>
+               <div class="divTableCell "style="border-left:1px solid black; border-right: 1px solid black;">{{ row.account or '' }}</div>
+               <div class="divTableCell text-center">{{ row.party }}</div>
+               <div class="divTableCell text-right"style="border-left:1px solid black; border-right: 1px solid black;">{{ row.party_balance }}</div>
+               <div class="divTableCell text-center">{{ row.plant or '' }}</div>
+               <div class="divTableCell text-right"style="border-left:1px solid black; border-right: 1px solid black;">{{ row.get_formatted('debit_in_account_currency' , doc) }}</div>
+               <div class="divTableCell text-right">{{ row.get_formatted('credit_in_account_currency' , doc) or '' }}</div>
+      
+        </div>
+        {%- endfor -%}
+    </div>
+</div>

@@ -1,0 +1,53 @@
+{%set style           = "mkub/templates/print_style/style.css" %}
+{%set datetime        = "mkub/templates/includes/datetime.html" %}      
+{%set docname         = "mkub/templates/includes/DocName.html" %}      
+{%set myhead          = "mkub/templates/includes/myhead.html" %}
+{%set address         = "mkub/templates/includes/address.html" %}
+{%set watermark       = "mkub/templates/includes/watermark.html" %}
+{%set acceptance      = "mkub/templates/includes/Acceptance.html" %}   
+{%set item            = "mkub/templates/includes/item.html" %}
+{%set item_standard   = "mkub/templates/includes/item_standard.html" %}
+{%set tax             = "mkub/templates/includes/tax.html" %}
+{%set calculation     = "mkub/templates/includes/calculation.html" %}
+{%set note            = "mkub/templates/includes/note.html" %}
+{%set paymentterm     = "mkub/templates/includes/paymentterm.html" %}
+{%set companybank     = "mkub/templates/includes/companybank.html" %}
+{%set printsetting    = "mkub/templates/includes/printsetting.html" %}
+{%set Approver_footer = "mkub/templates/includes/Approver_footer.html" %}
+{%set pageno          = "mkub/templates/includes/pageno.html" %}  
+<style> {%- include style -%} </style>                     
+{%- include datetime -%}                                   
+
+<div class="top text-center"><strong>Proforma Invoice</strong></div> 
+{%- include myhead -%}                                      
+{%- include address -%}                                     
+{%- include watermark -%}                                   
+
+{%- include item -%}                                        
+<div class="divTable t line"> 
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="row  divTableCell" style="width: 50%; padding: 1px 2px;">
+                {%- include tax -%}                 
+            </div>
+            <div class="row divTableCell l-line" style="width: 50%; font-size: 10px; padding: 1px 2px;">
+                {%- include calculation -%}         
+            </div>            
+        </div>	
+    </div>
+</div>
+<div class="divTable t line">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell col-xs-6 r-line" style="font-size: 9px;">
+                {%- include note -%}                
+            </div>
+            <div class="divTableCell col-xs-6" style="font-size: 9px">
+                {%- include companybank -%}         
+            </div>
+        </div>
+    </div>
+</div>
+{%- include printsetting -%}                        
+{%- include Approver_footer-%}                      
+     

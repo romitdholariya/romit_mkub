@@ -1,0 +1,97 @@
+<div class="divTable t line">
+    <div class="divTableBody">
+        <div class="divTableRow bglight">
+            <div class="divTableCell text-center r-line" style="width: 2%;"><strong>Sr</strong></div>
+            <div class="divTableCell text-center r-line" style="width: 48%;"><strong>Product Details</strong></div>
+            <div class="divTableCell text-center r-line" style="width:16.66%;"><strong>Quantity</strong></div>
+            <div class="divTableCell text-center r-line" style="width:16.66%;"><strong>Unit Rate</strong></div>
+            <div class="divTableCell text-center " style="width:16.66%;"><strong>Amount</strong></div>
+        </div>
+        {%- for row in doc.items -%}
+        <div class="divTableRow" style="border-top:1px solid black; ">
+            {% if row.item_code == ""  -%}
+                <div class="divTableCell text-center" style="width: 2%;"><font size = "1">{{ row.idx }}</font></div>
+                <div class="divTableCell r-line l-line"><font size = "1">
+                    <b>{{ row.item_name or ""}}</b><br/>
+                    {%if row.item_name == row.description %}
+                    {%else%}
+                        <small>{{ row.description or "" }}</small><br/>
+                    {%endif%}
+                </font></div>
+                <div class="divTableCell text-right"><font size = "1"><small>{{ row.uom or row.stock_uom }}</small> {{ row.qty }} </font></div>
+                <div class="divTableCell text-right r-line l-line"><font size = "1">
+                        {% if row.price_list_rate == 0.0 %}
+                            <small><b>Rs. {{row.get_formatted("rate", doc) }} </b></small><br>
+                        {% else %}
+                            {%if doc.get_formatted('currency') != 'INR' %}   <!-- Export Document-->
+                                <small><b>{{row.get_formatted("price_list_rate", doc) }} Rs.</b></small><br>    
+                                <small><b>{{row.get_formatted('base_rate', doc) }} Rs.</b></small><br>
+                            {%else%}
+                                <small><b>{{row.get_formatted("price_list_rate", doc) }} Rs.</b></small><br>
+                            {%endif%}
+                        {% endif %}
+                        {% if row.discount_percentage != 0.0 %}
+                            <small> DIS: ({{row.get_formatted("discount_percentage", doc)}}) <b>{{row.get_formatted("rate", doc) }}</b></small>
+                            <small><b>{{row.get_formatted('base_rate', doc) }} Rs.</b></small><br>
+                        {% endif %}
+                </font></div>
+                <div class="divTableCell text-right"><small>{{ row.get_formatted("amount", doc) }}</small></div>
+            {%- else %}
+               <div class="divTableCell text-center" style="width: 2%;"><font size = "1">{{ row.idx }}</font></div>
+                <div class="divTableCell r-line l-line"><font size = "1">
+                    {% if row.item_code != row.item_name  -%}
+                            Item No: <strong>{{ row.item_code or ""}}</strong> &nbsp;
+                            {%- if row.gst_hsn_code != "" -%} 
+                            HSN Code: <strong>{{ row.gst_hsn_code or "" }}</strong> &nbsp;
+                            {%- endif -%}
+                            {%- if doc.doctype == 'Sales Order' and row.bom_no != "" -%}
+                            <strong>{{row.bom_no or ""}}</strong>
+                            {%- endif -%}
+                    {%- endif %}
+                    <br/><b>» {{ row.item_name or ""}}</b><br/>
+                    {%if row.item_name == row.description %}
+                    {%else%}
+                    <div class="tab"><small >{{ row.description or ""}}</small></div>
+                    {%endif%}
+                    {% if doc.po_type == "Subcontract PO"  -%}
+                    <div class="tab"><small ><b class="u-line">FG Item Code:</b>{{ row.fg_item or ""}}</small> <small ><b class="u-line">FG Item Qty:</b>{{ row.fg_item_qty or ""}}</small></div>
+                    <div class="tab"><small ><b class="u-line">Target Warehouse:</b>{{ row.warehouse }}</small></div>
+                    {%endif%}
+                </font></div>
+                
+                <div class="divTableCell text-right "  >
+                    <font size = "1"><b>{{ row.qty }} </b><small>{{ row.uom or row.stock_uom }}</small></font>
+                </div>
+                <div class="divTableCell text-right r-line l-line"><font size = "1">
+                        {% if row.price_list_rate == 0.0 %}
+                            <small><b>{{row.get_formatted("rate", doc) }} Rs.</b></small><br>
+                        {% else %}
+                            {%if doc.get_formatted('currency') != 'INR' %}   <!-- Export Document-->
+                                <small><b>({{doc.get_formatted('currency', doc)}}) {{row.get_formatted("rate", doc) }} Rs.</b></small><br>    
+                                <small><b>(INR) {{row.get_formatted('base_rate', doc) }} Rs.</b></small><br>
+                                <small><b>Exch.Rate {{doc.get_formatted('conversion_rate', doc)}}</b></small><br>
+                            {%else%}
+                                <small><b>U/P: {{row.get_formatted("rate", doc) }} Rs.</b></small><br>
+                            {%endif%}
+                        {% endif %}
+
+                        <!-- # Prashant sir Added discount_percentage -->
+
+
+                        <!-- {% if row.discount_percentage != 0.0 %}   
+                        <small><b>Std.Rate: </b>{{row.get_formatted("price_list_rate",doc)}}</small><br/>
+                        <small><b>Dis: </b>{{row.get_formatted("discount_amount", doc) }} ({{row.get_formatted("discount_percentage", doc)}})</small>
+                        {% endif %} -->
+
+                        
+                        {% if doc.workflow_state != "Approved" %}
+                        <small><b>Std.Rate: </b>{{row.get_formatted("price_list_rate",doc)}}</small><br/>
+                        <small><b>Dis: </b>{{row.get_formatted("discount_amount", doc) }} ({{row.get_formatted("discount_percentage", doc)}})</small>
+                        {% endif %}
+                </font></div>
+                <div class="divTableCell text-right"><small>{{ row.get_formatted("amount", doc) }}</small></div>
+            {%- endif %}
+        </div>
+        {%- endfor -%}
+    </div>
+</div>

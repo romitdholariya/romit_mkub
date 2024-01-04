@@ -1,0 +1,107 @@
+
+<div class="top" ><strong>{{doc.company}}</strong></div>   <!--  Company line          -->
+                <!-- <div class="col-xs-12 value" style="font-size: 16px;"><strong>{{ doc.company }}</strong></div> -->
+                {% set address = frappe.get_list(
+                    'Address',
+                    filters={ 
+                                'is_your_company_address': '1',
+                                'is_letterhead_address': '1',
+                                'link_name': doc.company
+                            },
+                    fields=[
+                    'idx',
+                    'address_title', 
+                    'address_line1',
+                    'address_line2',
+                    'city',
+                    'country',
+                    'state',
+                    'pincode',
+                    'email_id',
+                    'phone',
+                    'gstin',
+                    ],
+                )
+                %}
+
+                <div class="divTable">
+                    <div class="divTableBody">
+                        <div class="divTableRow line">
+                            <div class="divTableCell logo " style="width:20%" >
+                                {% set ans = frappe.db.get_value('Letter Head','Parason Logo','image') %}
+                                <img class="col-xs-12 logo" alt="Sample Latter Head"  src="{{ans}}">
+                            </div>
+                            <div class="divTableCell" >
+                                {% for address in address %}
+                                {% if(address.lnik_name == doc.company ) %}{%endif%}
+                                <div class="col-xs-12" style="font-size: 12px;"><strong>{{doc.company}}</strong></div> 
+                                <div class="col-xs-12" style="font-size: 9px;">{{address.address_line1 or ''}}, {{address.address_line2 or ''}}</div>
+                                <div class="col-xs-12" style="font-size: 9px;">{{address.city or ''}}, {{ address.state or ''}}-{{ address.pincode or '' }}, {{address.country or ''}}</div>
+                                <div class="col-xs-12" style="font-size: 9px;"></div>
+                                <div class="col-xs-12" style="font-size: 9px;"><b>Email:</b>{{address.email_id or ''}} <b>Phone:</b>{{address.phone or ''}}</div>
+                                <div class="col-xs-12" style="font-size: 9px;"><b>GSTIN:</b>{{address.gstin or ''}}</div>
+                                {% endfor %}
+                                {% set fix_note = frappe.db.get_single_value('Print Setting', 'pan_no') %}
+                                {%if fix_note == ""%}
+                                {%else%}
+                                <div class="col-xs-12" style="font-size: 9px;"><b>PAN: </b>{{fix_note or ''}}</div>
+                                {% set fix_note = ""%}
+                                {%endif%}
+                                {% set fix_note = frappe.db.get_single_value('Print Setting', 'cin_no') %}
+                                {%if fix_note == ""%}
+                                {%else%}
+                                <div class="col-xs-12" style="font-size: 9px;"><b>CIN: </b>{{fix_note or ''}}</div>
+                                {% set fix_note = ""%}
+                                {%endif%}
+                                {% set fix_note = frappe.db.get_single_value('Print Setting', 'website') %}
+                                {%if fix_note == ""%}
+                                {%else%}
+                                <div class="col-xs-12" style="font-size: 9px;"><b>WEB-Site: </b>{{fix_note or ''}}</div>
+                                {% set fix_note = ""%}
+                                {%endif%}
+
+                               <!-- {% set ans = frappe.db.get_value('Company',doc.company,'cin_no') %}
+                                <div class="col-xs-12" style="font-size: 9px;">
+                                    {%if ans == ""%}
+                                    {%else%}
+                                    <b>CIN No:</b>{{ans or ''}}
+                                    {%endif%}
+                                </div> -->
+                            </div>
+                            <div class="divTableCell l-line" style="width:44%" >
+                                {%if doc.doctype == "Subcontracting Order" %}
+                                <div class="col-xs-5 b-line t-line" style="font-size: 9px; padding: 0px 1px;"><strong> Subcon Order No.:</strong></div>
+                                <div class="col-xs-7 l-line b-line t-line" style="font-size: 9px; padding: 0px 1px;"><strong>{{ doc.get_formatted('name')  or "N/A" }}</strong></div>
+                                <div class="col-xs-5 b-line" style="font-size: 9px;padding: 0px 1px;"><strong> Date:</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;">{{ doc.get_formatted('transaction_date')  or "N/A" }}</div>
+                                <div class="col-xs-5 b-line" style="font-size: 9px;padding: 0px 1px;"><strong> PO No.:</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;">{{ doc.get_formatted('purchase_order') or "N/A" }}</div>
+                                <div class="col-xs-5 b-line" style="font-size: 9px;padding: 0px 1px;" padding: 0px 1px;><strong> Plant :</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;">{{ doc.get_formatted('plant') or "N/A" }}</div>
+                                {%else%}
+                                <div class="col-xs-5 b-line" style="font-size: 9px; padding: 0px 1px;"><strong> Challan No.:</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;"><strong>{{ doc.get_formatted('name')  or "N/A" }}</strong></div>
+                                <div class="col-xs-5 b-line" style="font-size: 9px; padding: 0px 1px;"><strong> Date:</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;">{{ doc.get_formatted('posting_date')  or "N/A" }}</div>
+                                <div class="col-xs-5 b-line" style="font-size: 9px; padding: 0px 1px;"><strong> Reference No.:</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;">{{ doc.get_formatted('subcontracting_order') or "N/A" }}</div>
+                                <div class="col-xs-5 b-line" style="font-size: 9px; padding: 0px 1px;"><strong> PO No.:</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;">{{ doc.get_formatted('subcontracting_purchase_order') or "N/A" }}</div>
+                                <div class="col-xs-5 b-line" style="font-size: 9px; padding: 0px 1px;"><strong> Mode Of Trans:</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;"> {{doc.mode_of_transport or "N/A"}} </div>
+                                <div class="col-xs-5 b-line" style="font-size: 9px; padding: 0px 1px;"><strong> Vehicle No.:</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;"> {{doc.lr_no or "N/A"}} </div>
+                                <div class="col-xs-5 b-line" style="font-size: 9px; padding: 0px 1px;"><strong> Driver Name:</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;"> {{doc.driver_name or "N/A"}} </div>
+                                <div class="col-xs-5 b-line" style="font-size: 9px; padding: 0px 1px;"><strong> EWay Bill No:</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;">{{doc.ewb_trans_id or "N/A"}}</div>
+                                <div class="col-xs-5 b-line" style="font-size: 9px; padding: 0px 1px;"><strong> EWay Bill Date:</strong></div>
+                                <div class="col-xs-7 l-line b-line" style="font-size: 9px; padding: 0px 1px;">{{doc.ewb_date or "N/A"}}</div>
+                                <div class="col-xs-5" style="font-size: 9px; padding: 0px 1px;"><strong> EWay Valid Till:</strong></div>
+                                <div class="col-xs-7 l-line " style="font-size: 9px; padding: 0px 1px;">{{doc.ewb_valid_till or "N/A"}}</div>
+                                {%endif%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+

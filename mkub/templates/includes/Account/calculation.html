@@ -1,0 +1,31 @@
+<div class="divTable t">
+    <div class="divTableBody">
+        <div class="divTablerow" style="font-size: 10px;">
+            <div class="col-xs-3" style="padding: 0px 1px;"><strong>Total Debit:</strong></div>
+            <div class="col-xs-9 text-right" style="padding: 0px 1px;">{{ doc.get_formatted('total_debit') }}</div>
+        </div>
+        <div class="divTablerow" style="font-size: 10px;">
+            <div class="col-xs-3" style="padding: 0px 1px;"><strong>Total Credit:</strong> </strong></div>
+            <div class="col-xs-9 text-right" style="padding: 0px 1px;">{{ doc.get_formatted('total_credit') }}</div>
+        </div>
+        <div class="divTablerow" style="font-size: 10px;">
+            <div class="col-xs-3" style="padding: 0px 1px;"><strong>Total Amount:</strong> </strong></div>
+            <div class="col-xs-9 text-right" style="padding: 0px 1px;">{{ doc.get_formatted('total_amount') }}</div>
+        </div>
+        <div class="divTablerow" style="font-size: 10px;">
+            <div class="col-xs-3" style="padding: 0px 1px;"><strong>In-Words:</strong> </strong></div>
+            <div class="col-xs-9 text-right" style="padding: 0px 1px;">{{ doc.get_formatted('total_amount_in_words') }}</div>
+        </div>
+    </div>
+</div>
+<!--
+{%- for label, value in (
+    (_("Received On"), frappe.utils.format_date(doc.voucher_date)),
+    (_("Received From"), doc.pay_to_recd_from),
+    (_("Amount"), "<strong>" + doc.get_formatted("total_amount") + "</strong><br>" + (doc.total_amount_in_words or "") + "<br>"),
+    (_("Remarks"), doc.remark)
+) -%}
+<label >{{ label }}</label>
+{{ value }}
+{%- endfor -%}
+-->

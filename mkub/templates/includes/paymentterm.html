@@ -1,0 +1,6 @@
+<div class="divTableRow u-line" style="font-size: 9px;">Payment Terms:</div>
+<div class="divTableRow" style="font-size: 9px;">
+  {% for row in doc.payment_schedule %}
+  {{ row.get_formatted("payment_term", doc) }} <b>({{row.get_formatted("payment_amount", doc) }})</b><br>
+  {% endfor %}
+</div>

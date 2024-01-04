@@ -1,0 +1,349 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-11-18 14:57:48.603405",
+ "description": "Use HTML Tags for achive batter result like \nnew line <br>\nbold <b></b>",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "letter_head_tab",
+  "license_details",
+  "cin_no",
+  "pan_no",
+  "website",
+  "buying_tab",
+  "b_purchase_email",
+  "b_purchase_phone",
+  "purchase_order_section",
+  "b_note_text",
+  "b_certification_text",
+  "b_jurisdiction_text",
+  "sealing_tab",
+  "s_purchase_email",
+  "s_purchase_phone",
+  "s_director_name",
+  "s_director_sign",
+  "quotation_section",
+  "q_order_acceptance",
+  "q_foot_note",
+  "sale_order_section",
+  "s_order_acceptance",
+  "s_certification_text",
+  "s_jurisdiction_text",
+  "s_attract_text",
+  "s_quote_text",
+  "proforma_invoice_section",
+  "pi_foot_note",
+  "export_invoice_section",
+  "e_certification_text",
+  "e_attract_text",
+  "commercial_invoice_section",
+  "ci_bank_details",
+  "ci_certification_text",
+  "ci_foot_note",
+  "comman_tab",
+  "section_break_13",
+  "bank_name_1",
+  "bank_ac_1",
+  "column_break_6lopt",
+  "bank_ifsc_code_1",
+  "branch_1",
+  "section_break_14",
+  "bank_name_2",
+  "bank_ac_2",
+  "column_break_pvcnm",
+  "bank_ifsc_code_2",
+  "branch_2",
+  "manufacturing_tab",
+  "mnf_order_acceptance",
+  "mnf_foot_note"
+ ],
+ "fields": [
+  {
+   "fieldname": "buying_tab",
+   "fieldtype": "Tab Break",
+   "label": "Buying"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "purchase_order_section",
+   "fieldtype": "Section Break",
+   "label": "Purchase Order"
+  },
+  {
+   "fieldname": "b_note_text",
+   "fieldtype": "Text Editor",
+   "label": "Note Text"
+  },
+  {
+   "fieldname": "b_certification_text",
+   "fieldtype": "Text Editor",
+   "label": "Certification Text"
+  },
+  {
+   "fieldname": "b_jurisdiction_text",
+   "fieldtype": "Text Editor",
+   "label": "Jurisdiction Text"
+  },
+  {
+   "fieldname": "sealing_tab",
+   "fieldtype": "Tab Break",
+   "label": "Selling"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sale_order_section",
+   "fieldtype": "Section Break",
+   "label": "Sale Order"
+  },
+  {
+   "fieldname": "s_certification_text",
+   "fieldtype": "Text Editor",
+   "label": "Certification Text"
+  },
+  {
+   "fieldname": "s_jurisdiction_text",
+   "fieldtype": "Text Editor",
+   "label": "Jurisdiction Text"
+  },
+  {
+   "fieldname": "s_attract_text",
+   "fieldtype": "Text Editor",
+   "label": "Attract Text"
+  },
+  {
+   "fieldname": "comman_tab",
+   "fieldtype": "Tab Break",
+   "label": "Account"
+  },
+  {
+   "fieldname": "section_break_13",
+   "fieldtype": "Section Break",
+   "label": "Bank Detail 1"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "export_invoice_section",
+   "fieldtype": "Section Break",
+   "label": "Export Invoice"
+  },
+  {
+   "fieldname": "e_certification_text",
+   "fieldtype": "Text Editor",
+   "label": "Certification Text"
+  },
+  {
+   "fieldname": "e_attract_text",
+   "fieldtype": "Text Editor",
+   "label": "Attract Text"
+  },
+  {
+   "fieldname": "s_order_acceptance",
+   "fieldtype": "Text Editor",
+   "label": "Order Acceptance"
+  },
+  {
+   "fieldname": "s_quote_text",
+   "fieldtype": "Text Editor",
+   "label": "Quote Text"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "quotation_section",
+   "fieldtype": "Section Break",
+   "label": "Quotation"
+  },
+  {
+   "fieldname": "q_order_acceptance",
+   "fieldtype": "Text Editor",
+   "label": "Order Acceptance"
+  },
+  {
+   "fieldname": "q_foot_note",
+   "fieldtype": "Text Editor",
+   "label": "Foot Note"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "proforma_invoice_section",
+   "fieldtype": "Section Break",
+   "label": "Proforma Invoice"
+  },
+  {
+   "fieldname": "pi_foot_note",
+   "fieldtype": "Text Editor",
+   "label": "Foot Note"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "commercial_invoice_section",
+   "fieldtype": "Section Break",
+   "label": "Commercial Invoice"
+  },
+  {
+   "fieldname": "ci_foot_note",
+   "fieldtype": "Text Editor",
+   "label": "Foot Note"
+  },
+  {
+   "fieldname": "ci_certification_text",
+   "fieldtype": "Text Editor",
+   "label": "Certification Text"
+  },
+  {
+   "fieldname": "ci_bank_details",
+   "fieldtype": "Text Editor",
+   "label": "Bank Details "
+  },
+  {
+   "fieldname": "manufacturing_tab",
+   "fieldtype": "Tab Break",
+   "label": "Manufacturing"
+  },
+  {
+   "fieldname": "mnf_order_acceptance",
+   "fieldtype": "Text Editor",
+   "label": "Order Acceptance"
+  },
+  {
+   "fieldname": "mnf_foot_note",
+   "fieldtype": "Text Editor",
+   "label": "Foot Note"
+  },
+  {
+   "fieldname": "letter_head_tab",
+   "fieldtype": "Tab Break",
+   "label": "Letter Head"
+  },
+  {
+   "fieldname": "cin_no",
+   "fieldtype": "Data",
+   "label": "CIN No"
+  },
+  {
+   "fieldname": "pan_no",
+   "fieldtype": "Data",
+   "label": "PAN No"
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "label": "Website"
+  },
+  {
+   "fieldname": "license_details",
+   "fieldtype": "Text Editor",
+   "label": "License Details"
+  },
+  {
+   "fieldname": "b_purchase_email",
+   "fieldtype": "Data",
+   "label": "Purchase Email"
+  },
+  {
+   "fieldname": "b_purchase_phone",
+   "fieldtype": "Phone",
+   "label": "Purchase Phone"
+  },
+  {
+   "fieldname": "s_purchase_email",
+   "fieldtype": "Data",
+   "label": "Sales Email"
+  },
+  {
+   "fieldname": "s_purchase_phone",
+   "fieldtype": "Phone",
+   "label": "Sales Phone"
+  },
+  {
+   "fieldname": "bank_name_1",
+   "fieldtype": "Data",
+   "label": "Bank Name"
+  },
+  {
+   "fieldname": "bank_ac_1",
+   "fieldtype": "Data",
+   "label": "Bank AC"
+  },
+  {
+   "fieldname": "bank_ifsc_code_1",
+   "fieldtype": "Data",
+   "label": "Bank IFSC Code"
+  },
+  {
+   "fieldname": "branch_1",
+   "fieldtype": "Data",
+   "label": "Branch"
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break",
+   "label": "Bank Detail 2"
+  },
+  {
+   "fieldname": "bank_name_2",
+   "fieldtype": "Data",
+   "label": "Bank Name"
+  },
+  {
+   "fieldname": "bank_ac_2",
+   "fieldtype": "Data",
+   "label": "Bank AC"
+  },
+  {
+   "fieldname": "bank_ifsc_code_2",
+   "fieldtype": "Data",
+   "label": "Bank IFSC Code"
+  },
+  {
+   "fieldname": "branch_2",
+   "fieldtype": "Data",
+   "label": "Branch"
+  },
+  {
+   "fieldname": "column_break_6lopt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_pvcnm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "s_director_sign",
+   "fieldtype": "Attach Image",
+   "label": "Director Sign"
+  },
+  {
+   "fieldname": "s_director_name",
+   "fieldtype": "Data",
+   "label": "Director Name"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-04-14 12:15:08.754994",
+ "modified_by": "Administrator",
+ "module": "mkub custom",
+ "name": "Print Setting",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

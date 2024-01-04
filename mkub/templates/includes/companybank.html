@@ -1,0 +1,27 @@
+
+{%if doc.doctype == 'Quotation' or doc.doctype == 'Sales Order' or doc.doctype == 'Sales Invoice' or doc.doctype == 'Proforma Invoice'%}
+<div class="divTable t">
+        <div class="divTableBody l-line">
+            <div class="divTableRow b-line">
+                {% set fix_note = frappe.db.get_single_value('Print Setting', 'bank_name_1') %}
+                <div class="divTableCell col-xs-4" style="font-size: 9px;"><strong>Bank Name:</strong></div>
+                <div class="divTableCell col-xs-8" style="font-size: 9px">{{ fix_note }}</div>
+            </div>
+            <div class="divTableRow b-line">
+                {% set fix_note = frappe.db.get_single_value('Print Setting', 'bank_ifsc_code_1') %}
+                <div class="divTableCell col-xs-4" style="font-size: 9px;"><strong>IFSC Code:</strong></div>
+                <div class="divTableCell col-xs-8" style="font-size: 9px"><strong>{{ fix_note }}</strong></div>
+            </div>
+            <div class="divTableRow b-line">
+                {% set fix_note = frappe.db.get_single_value('Print Setting', 'bank_ac_1') %}
+                <div class="divTableCell col-xs-4" style="font-size: 9px;"><strong>A/C No:</strong></div>
+                <div class="divTableCell col-xs-8" style="font-size: 10px"><strong>{{ fix_note }}</strong></div>
+            </div>
+            <div class="divTableRow b-line">
+                {% set fix_note = frappe.db.get_single_value('Print Setting', 'branch_1') %}
+                <div class="divTableCell col-xs-4" style="font-size: 9px;"><strong>Branch:</strong></div>
+                <div class="divTableCell col-xs-8" style="font-size: 9px">{{ fix_note }}</div>
+            </div>
+        </div>
+    </div>
+{%endif%}

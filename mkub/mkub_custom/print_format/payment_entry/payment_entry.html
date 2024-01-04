@@ -1,0 +1,146 @@
+{%set style             = "mkub/templates/print_style/style.css" %} 
+{%set datetime        = "mkub/templates/includes/datetime.html" %}      
+{%set docname         = "mkub/templates/includes/DocName.html" %}              
+{%set myhead            = "mkub/templates/includes/myhead.html" %}
+{%set watermark         = "mkub/templates/includes/watermark.html" %}
+{%set Approver_footer   = "mkub/templates/includes/Approver_footer.html" %}       
+{%set gl = frappe.get_list(doctype="GL Entry",  fields=["account", "party_type", "party", "debit", "credit", "remarks"], filters={"voucher_type": doc.doctype, "voucher_no": doc.name}) %}
+{%set address = frappe.get_list(
+    'Address',
+    filters={ 
+                'address_title': doc.party_name
+            },
+    fields=[
+    'idx',
+    'address_title', 
+    'address_line1',
+    'address_line2',
+    'city',
+    'country',
+    'state',
+    'pincode',
+    'email_id',
+    'phone',
+    'gstin',
+    ],
+)
+%}
+
+<style> {%- include style -%} </style>               
+{%- include datetime -%}                                   
+{%- include docname -%}                                    
+{%- include myhead -%}                             
+{%- include watermark -%}                           
+<div class="divTable t line">       
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell "style="width:30%"><strong>Doc No:</strong>{{ doc.name }} </div>
+                {% for entries in gl %}
+                    {%if entries.party_type == "Supplier" and  doc.payment_type == "Pay" and doc.paid_from_account_currency == "INR"%}
+                        <div class="divTableCell text-center"style="background: #ebebeb;"><strong>Supplier Payment</strong></div>
+                    {%elif entries.party_type == "Supplier" and doc.payment_type == "Pay" and doc.paid_from_account_currency != "INR"%}
+                        <div class="divTableCell text-center"style="background: #ebebeb;"><strong>Supplier Export Payment</strong></div>
+        
+                    {%elif entries.party_type == "Supplier" and doc.payment_type == "Receive" and doc.paid_from_account_currency == "INR"%}
+                        <div class="divTableCell text-center"style="background: #ebebeb;"><strong>Supplier Receipt</strong></div>   
+                    {%elif entries.party_type == "Supplier" and doc.payment_type == "Receive" and doc.paid_from_account_currency != "INR"%}
+                        <div class="divTableCell text-center"style="background: #ebebeb;"><strong>Supplier Export Receipt</strong></div>             
+            
+                    {%elif entries.party_type == "Customer" and doc.payment_type == "Pay" and doc.paid_from_account_currency == "INR"%}
+                        <div class="divTableCell text-center"style="background: #ebebeb;"><strong>Customer Payment</strong></div>
+                    {%elif entries.party_type == "Customer" and doc.payment_type == "Pay" and doc.paid_from_account_currency != "INR"%}
+                        <div class="divTableCell text-center"style="background: #ebebeb;"><strong>Customer Export Payment</strong></div> 
+                    
+                    {%elif entries.party_type == "Customer" and doc.payment_type == "Receive" and doc.paid_from_account_currency == "INR"%}
+                        <div class="divTableCell text-center"style="background: #ebebeb;"><strong>Customer Receipt</strong></div>
+                    {%elif entries.party_type == "Customer" and doc.payment_type == "Receive" and doc.paid_from_account_currency != "INR"%}
+                        <div class="divTableCell text-center"style="background: #ebebeb;"><strong>Customer Export Receipt</strong></div> 
+                
+                    {%elif doc.payment_type == "Internal Transfer"%}
+                        <div class="divTableCell text-center"style="background: #ebebeb;"><strong>Internal Transfer</strong></div>
+                    {%endif%}   
+                {% endfor %}
+            <div class="divTableCell text-right"style="width:30%"><strong > Date:</strong>{{ doc.get_formatted('posting_date') }}</div>
+        </div>
+    </div>
+</div>
+<div class="linespase"></div>
+<div class="divTable t line"  >
+    <div class="divTableBody">
+        <div class="divTableCell col-xs-7">
+            <div class="divTableRow col-xs-12" style="padding:0px;">
+                <div class="divTableCell col-xs-2"style="font-size: 9px;"><strong>Party Code:</strong></div>
+                <div class="divTableCell col-xs-10" style="font-size: 9px;"><strong>{{ doc.get_formatted('party')}}</strong></div>
+            </div>
+              <div class="divTableRow col-xs-12" style="padding:0px;">
+                <div class="divTableCell col-xs-2" style="font-size: 9px;"><strong>Party Name:</strong></div>
+                <div class="divTableCell col-xs-10" style="font-size: 9px;"><strong>{{ doc.get_formatted('party_name')}}</strong></div>
+            </div>
+              <div class="divTableRow col-xs-12" style="padding:0px;">
+                <div class="divTableCell col-xs-2" style="font-size: 9px;"><strong>Address:</strong></div>
+                {% for address in address %}
+                <div class="divTableCell col-xs-10" style="font-size: 9px;"><small>
+                    {{address.address_line1 or ''}} {{address.address_line2 or ''}}<br/>
+                    {{address.city or ''}},{{address.state or ''}}-{{address.pincode or ''}},{{address.country or ''}}<br/>
+                    {{address.gstin or ''}}<br/>
+                    <strong>{{address.phone or ''}}</strong> {{address.email_id or ''}}
+                <small></div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="divTableCell col-xs-5">
+            <div class="divTableRow col-xs-12" style="padding:0px;">
+                <div class="divTableCell col-xs-4" style="font-size: 9px;"><strong>Party Balance:</strong></div>
+                <div class="divTableCell col-xs-8 text-right" style="font-size: 9px;">{{ doc.get_formatted('party_balance')}}</div>
+            </div>
+            {%- for row in doc.references -%}
+            <div class="divTableRow col-xs-12" style="padding:0px;">
+                <div class="divTableCell col-xs-4" style="font-size: 9px;"><strong>Grand Total:</strong></div>
+                <div class="divTableCell col-xs-8 text-right" style="font-size: 9px;">{{ row.get_formatted('total_amount',doc)}}</div>
+            </div>
+            <div class="divTableRow col-xs-12" style="padding:0px;">
+                <div class="divTableCell col-xs-4" style="font-size: 9px;"><strong>Outstand Amount:</strong></div>
+                <div class="divTableCell col-xs-8 text-right" style="font-size: 9px;">{{ row.get_formatted('outstanding_amount',doc)}}</div>
+            </div>
+            {%- endfor -%}
+            <div class="divTableRow col-xs-12" style="padding:0px; background: #ebebeb;">
+                <div class="divTableCell col-xs-4" style="font-size: 9px;"><strong>Paid Amount:</strong></div>
+                <div class="divTableCell col-xs-8 text-right" style="font-size: 9px;"><strong>{{ doc.get_formatted('paid_amount')}}</strong></div>
+            </div>
+            {% if doc.paid_from_account_currency != "INR"%}
+            <div class="divTableRow col-xs-12" style="padding:0px;">
+                <div class="divTableCell col-xs-4" style="font-size: 9px;"><strong>Paid Amount(INR):</strong></div>
+                <div class="divTableCell col-xs-8 text-right" style="font-size: 9px;"><strong>{{ doc.get_formatted('base_paid_amount')}}</strong></div>
+            </div>
+            {%endif%} 
+            <div class="divTableRow col-xs-12" style="padding:0px;">
+                <div class="divTableCell col-xs-4" style="font-size: 9px;"><strong>Taxes & Charges:</strong></div>
+                <div class="divTableCell col-xs-8 text-right" style="font-size: 9px;"><strong>{{ doc.get_formatted('total_taxes_and_charges')}}</strong></div>
+            </div>
+        </div>
+        <div class="divTableCell t-line col-xs-12">
+            {% if doc.bank%}
+            <div class="divTableRow col-xs-12" style="padding:0px;">
+                <div class="divTableCell col-xs-2 u-line" style="font-size: 9px;"><strong>Bank:</strong></div>
+                <div class="divTableCell col-xs-10" style="font-size: 9px;">{{ doc.get_formatted('bank')}}-<strong>{{doc.get_formatted('bank_account_no') }}</div> 
+            </div>
+            {%endif%}
+            {% if doc.paid_from_account_currency != "INR"%}
+            <div class="divTableRow col-xs-12" style="padding:0px;">
+                <div class="divTableCell col-xs-2" style="font-size: 9px;"><strong>Exchange Rate:</strong></div>
+                <div class="divTableCell col-xs-9" style="font-size: 9px;">{{ doc.get_formatted('source_exchange_rate') }}</div> 
+            </div>
+            {%endif%} 
+        <div class="divTableRow col-xs-12" style="padding:0px;">
+            <div class="divTableCell col-xs-2 u-line" style="font-size: 9px;"><strong>GL Account</strong></div></br>
+            <div class="divTableCell col-xs-6" style="font-size: 9px;">Paid To: <strong>{{ doc.get_formatted('paid_to')}}</strong></div>
+            <div class="divTableCell col-xs-6" style="font-size: 9px;">Paid From: <strong>{{ doc.get_formatted('paid_from')}}</strong></div>
+        </div>
+        <div class="divTableRow col-xs-12" style="padding:0px;">
+            <div class="divTableCell col-xs-2" style="font-size: 9px;"><strong>Remarks:</strong></div>
+            <div class="divTableCell col-xs-10" style="font-size: 9px;"><strong>{{ doc.get_formatted('remarks') }}</strong></div> 
+        </div>
+        </div>
+    </div>
+<div class="linespase t-line"></div>
+{%- include Approver_footer -%}                     

@@ -1,0 +1,28 @@
+<div class="linespace"></div>
+<div class="divTable t " >
+    <div class="divTableBody line">
+        <div class="divTableRow">
+            {% set fix_note = frappe.db.get_single_value('Print Setting', 'bank_ac_1') %}
+            <div class="divTableCell col-xs-4 text-center" style="font-size: 9px;">{{ frappe.get_fullname(doc.owner) }}</div>
+            {%if doc.doctype == 'Purchase Order'%}
+            <div class="divTableCell col-xs-4 text-center">{{ doc.approve_1st or '' }}</div>
+            
+            {%else%}
+            <div class="divTableCell col-xs-4 text-center">{{ frappe.get_fullname(doc.modified_by) }}</div>
+            {%endif%}
+            {% set fix_note = frappe.db.get_single_value('Print Setting', 's_director_name') %}
+            <div class="divTableCell col-xs-4 text-center " style="font-size: 9px">{{ fix_note }}
+                <!-- {% set fix_note = frappe.db.get_single_value('Print Setting', 's_director_sign') %}
+                <img class="myqr" alt="Sample Latter Head" src="{{fix_note}}"> -->
+            </div>
+        </div><br/>
+        <div class="divTableRow" style="background: #e9e8e8;">
+            <div class="divTableCell col-xs-4 text-center" style="font-size: 9px;"><strong>Prepared By</strong></div>
+            <div class="divTableCell col-xs-4 text-center" style="font-size: 9px;"><strong>Approved By</strong></div>
+            <div class="divTableCell col-xs-4 text-center" style="font-size: 9px;"><strong>Director</strong></div>
+        </div>
+    </div>
+</div>
+
+
+
