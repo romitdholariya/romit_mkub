@@ -17,6 +17,7 @@ mkub/config/desktop.py
 mkub/config/docs.py
 mkub/fixtures/custom_field.json
 mkub/mkub_custom/__init__.py
+mkub/mkub_custom/custom/sales_partner.json
 mkub/mkub_custom/doctype/__init__.py
 mkub/mkub_custom/doctype/print_setting/__init__.py
 mkub/mkub_custom/doctype/print_setting/print_setting.js
@@ -78,7 +79,9 @@ mkub/templates/includes/Account/tax.html
 mkub/templates/includes/Manufacturing/head.html
 mkub/templates/includes/selling/SalesInvoice_main.html
 mkub/templates/pages/__init__.py
+mkub/templates/pages/__pycache__/__init__.py
 mkub/templates/print_style/__init__.py
 mkub/templates/print_style/style.css
 mkub/templates/print_style/style.json
 mkub/www/__init__.py
+mkub/www/__pycache__/__init__.py
